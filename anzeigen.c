@@ -1,31 +1,39 @@
+#include <windows.h>
+#include <commctrl.h>
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include "anzeigen.h"
 #include "sqlite3.h"
 #include "initialisieren.h"
 
+extern sqlite3 *db;
+sqlite3_stmt *stmt;
+extern int rc;
+extern char *sql;
+extern char *fehlernachricht;
+char Mark[100];
+int wahl;
 
+void DisplayResultsInListView(HWND hListView, sqlite3_stmt *stmt) {
+    ListView_DeleteAllItems(hListView);
+    int row = 0;
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        LVITEM lvItem;
+        lvItem.mask = LVIF_TEXT;
+        lvItem.iItem = row;
+        lvItem.iSubItem = 0;
+        lvItem.pszText = (char *)sqlite3_column_text(stmt, 0);
+        ListView_InsertItem(hListView, &lvItem);
 
-int callback(void *nichtVerwendet, int anzahl, char **inhalte, char **spaltennamen) {
-        for (int i = 0; i < anzahl; i++) {
-            printf("%s = %s\n", spaltennamen[i], inhalte[i]);
+        for (int i = 1; i < 10; i++) {
+            ListView_SetItemText(hListView, row, i, (char *)sqlite3_column_text(stmt, i));
         }
-        printf("\n\n\n");
-    return 0;
+        row++;
+    }
+    sqlite3_finalize(stmt);
 }
 
-    extern sqlite3 *db;
-    sqlite3_stmt *stmt;
-    extern int rc;
-    extern char *sql, *sql2, *sql3;
-    extern char *fehlernachricht;
-    char*Mark;
-    int wahl;
-
-void sortieren(sqlite3 *db, int wahl) {
-
-    switch(wahl) {
+void sortieren(sqlite3 *db, int wahl, HWND hListView) {
+    switch (wahl) {
         case 1:
             sql = "SELECT * FROM autos ORDER BY Preis ASC;";
             break;
@@ -45,86 +53,44 @@ void sortieren(sqlite3 *db, int wahl) {
             sql = "SELECT * FROM autos ORDER BY Laufleistung DESC;";
             break;
         default:
-            printf("Ungültige Wahl\n");
+            MessageBox(NULL, "Ungültige Wahl", "Fehler", MB_OK);
             return;
     }
 
     rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
     if (rc != SQLITE_OK) {
-        printf("SQL error: %s\n", sqlite3_errmsg(db));
+        MessageBox(NULL, sqlite3_errmsg(db), "SQL Error", MB_OK);
         return;
     }
 
-
-    printf("Typ | Marke | Modell | Jahr | Vin | Hubraum | Verbrauch | Beschreibung | Preis | Laufleistung\n");
-    printf("-------------------------------------------------------------------------------------------------\n");
-
-    while(sqlite3_step(stmt) == SQLITE_ROW) {
-        printf("%s | %s | %s | %d | %s | %d | %.2f | %s | %d | %d\n",
-            sqlite3_column_text(stmt, 0),
-            sqlite3_column_text(stmt, 1),
-            sqlite3_column_text(stmt, 2),
-            sqlite3_column_int(stmt, 3),
-            sqlite3_column_text(stmt, 4),
-            sqlite3_column_int(stmt, 5),
-            sqlite3_column_double(stmt, 6),
-            sqlite3_column_text(stmt, 7),
-            sqlite3_column_int(stmt, 8),
-            sqlite3_column_int(stmt, 9));
-    }
-
-    sqlite3_finalize(stmt);
-
+    DisplayResultsInListView(hListView, stmt);
 }
 
-void anzeigen (){
-initialisieren();
+void anzeigen(HWND hWnd, HWND hListView, int wahl) {
+    char sql[512];
+    switch (wahl) {
+        case 1:
+            strcpy(sql, "SELECT * FROM autos;");
+            break;
+        case 2:
+            GetWindowText(GetDlgItem(hWnd, 1001), Mark, sizeof(Mark));
+            sprintf(sql, "SELECT * FROM autos WHERE UPPER(marke) = UPPER('%s');", Mark);
+            break;
+        case 3:
 
-    neueEingabe:
-    printf("W\x84hlen Sie eine der folgenden Aktionen aus:\n\n");
-    printf("1: Alle Objekte anzeigen\n");
-    printf("2: Alle Objekte einer Marke anzeigen\n");
-    printf("3: Alle Objekte sortiert anzeigen\n");
-    printf("4: Zurück\n");
-    printf("Ihre Eingabe: ");
-    scanf("%i", &wahl);
-    printf("\n\n");
-    switch (wahl){
-    case 1:
-        sql = "SELECT * FROM autos;";
-        break;
-    case 2:
-        printf("Geben sie die Marke ein:\n");
-        scanf("%s", Mark);
-        sql = "SELECT * FROM autos WHERE UPPER(marke) = '";
-        strcat(sql, Mark);
-        strcat(sql, "');");
-        break;
-    case 3:
-    printf("Nach was möchten Sie sotrieren?\n");
-    printf("1: Preis (Aufsteigend)\n");
-    printf("2: Preis (Absteigend)\n");
-    printf("3: Jüngste zuerst\n");
-    printf("4: Älteste zuerst\n");
-    printf("5: niedrigste Laufleistung\n");
-    printf("6: Höchste Laufleistung\n");
-    printf("Ihre Wahl:");
-    scanf("%d", &wahl);
-    sortieren(db, wahl);
-        break;
-    case 4:
-        main();
-        break;
-    default:
-        printf("\nUng\x81ltige Eingabe!\n");
-        goto neueEingabe;
-        break;
+
+            sortieren(db, wahl, hListView);
+            return;
+        default:
+            MessageBox(hWnd, "Ungültige Wahl", "Fehler", MB_OK);
+            return;
     }
-    rc = sqlite3_exec(db, sql, callback, 0, &fehlernachricht);
-    if(rc != 0){
-        printf("Datenbankfehler: %s\n", fehlernachricht);
-        sqlite3_free(fehlernachricht);
-        exit(EXIT_FAILURE);
+
+    rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
+    if (rc != SQLITE_OK) {
+        MessageBox(hWnd, sqlite3_errmsg(db), "SQL Error", MB_OK);
+        return;
     }
-    sqlite3_close(db);
+
+    DisplayResultsInListView(hListView, stmt);
 }

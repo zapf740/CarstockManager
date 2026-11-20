@@ -138,13 +138,13 @@
 
 1713995016 e:\aufgaben\suv.h
 
-1719336168 source:g:\aufgaben\initialisieren.c
+1719427728 source:g:\aufgaben\initialisieren.c
 	<stdio.h>
 	<stdlib.h>
 	"initialisieren.h"
 	"sqlite3.h"
 
-1719067246 g:\aufgaben\initialisieren.h
+1719412066 g:\aufgaben\initialisieren.h
 
 1570775188 g:\aufgaben\sqlite3.h
 	<stdarg.h>
@@ -210,17 +210,24 @@
 
 1719067252 source:g:\aufgaben\ändern.c
 
-1719339370 source:g:\aufgaben\anzeigen.c
+1719519606 source:g:\aufgaben\anzeigen.c
+	<windows.h>
+	<commctrl.h>
 	<stdio.h>
-	<string.h>
-	<stdlib.h>
 	"anzeigen.h"
 	"sqlite3.h"
 	"initialisieren.h"
 
 1719245242 g:\aufgaben\anzeigen.h
 
-1719067252 source:g:\aufgaben\andern.c
+1719516132 source:g:\aufgaben\andern.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"andern.h"
+	"sqlite3.h"
+	"initialisieren.h"
 
 1719238994 source:g:\aufgaben\funktionen.c
 	<stdio.h>
@@ -228,32 +235,274 @@
 	<string.h>
 	"sqlite3.h"
 
-1719336994 source:g:\aufgaben\main.c
+1719519960 source:g:\aufgaben\main.c
+	<windows.h>
+	<commctrl.h>
 	<stdio.h>
 	"initialisieren.h"
 	"hinzufugen.h"
 	"loschen.h"
 	"anzeigen.h"
+	"andern.h"
 	"sqlite3.h"
 
 1719238718 g:\aufgaben\hinzufugen.h
 
 1719238980 g:\aufgaben\verkaufen.h
 
-1719336554 source:g:\aufgaben\hinzufugen.c
+1719517460 source:g:\aufgaben\hinzufugen.c
 	<stdio.h>
 	<stdlib.h>
+	<ctype.h>
 	<string.h>
 	"hinzufugen.h"
 	"sqlite3.h"
 	"initialisieren.h"
 
-1719245524 source:g:\aufgaben\loschen.c
+1719516132 source:g:\aufgaben\loschen.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"loschen.h"
 	"sqlite3.h"
+	"hinzufugen.h"
+	"initialisieren.h"
 
 1719245512 g:\aufgaben\loschen.h
+
+1719439694 g:\aufgaben\andern.h
+
+1719516132 source:g:\autos(mit gui)\andern.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"andern.h"
+	"sqlite3.h"
+	"initialisieren.h"
+
+1719439694 g:\autos(mit gui)\andern.h
+
+1570775188 g:\autos(mit gui)\sqlite3.h
+	<stdarg.h>
+
+1719412066 g:\autos(mit gui)\initialisieren.h
+
+1719517460 source:g:\autos(mit gui)\hinzufugen.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"hinzufugen.h"
+	"sqlite3.h"
+	"initialisieren.h"
+
+1719238718 g:\autos(mit gui)\hinzufugen.h
+
+1719516132 source:g:\autos(mit gui)\loschen.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"loschen.h"
+	"sqlite3.h"
+	"hinzufugen.h"
+	"initialisieren.h"
+
+1719245512 g:\autos(mit gui)\loschen.h
+
+1719520314 source:g:\autos(mit gui)\main.c
+	<windows.h>
+	<commctrl.h>
+	<stdio.h>
+	"initialisieren.h"
+	"hinzufugen.h"
+	"loschen.h"
+	"anzeigen.h"
+	"andern.h"
+	"sqlite3.h"
+
+1719245242 g:\autos(mit gui)\anzeigen.h
+
+1570775188 source:g:\autos(mit gui)\sqlite3.c
+	"config.h"
+	<vxWorks.h>
+	<pthread.h>
+	"mingw.h"
+	"_mingw.h"
+	<stdarg.h>
+	<stdint.h>
+	<inttypes.h>
+	<intrin.h>
+	<cmnintrin.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<stddef.h>
+	<TargetConditionals.h>
+	<ctype.h>
+	<time.h>
+	<sys/sysctl.h>
+	<malloc/malloc.h>
+	<libkern/OSAtomic.h>
+	<malloc.h>
+	<pthread.h>
+	"windows.h"
+	<sys/cygwin.h>
+	<errno.h>
+	<process.h>
+	<math.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<sys/ioctl.h>
+	<unistd.h>
+	<sys/time.h>
+	<errno.h>
+	<sys/mman.h>
+	<sys/file.h>
+	<sys/param.h>
+	<semaphore.h>
+	<limits.h>
+	<sys/mount.h>
+	<utime.h>
+	<sys/dcmd_blk.h>
+	<sys/statvfs.h>
+	<dlfcn.h>
+	"sqlite_tcl.h"
+	"tcl.h"
+	<ctype.h>
+	"sqlite3rtree.h"
+	<ctype.h>
+	<unicode/utypes.h>
+	<unicode/uregex.h>
+	<unicode/ustring.h>
+	<unicode/ucol.h>
+	<unicode/ubrk.h>
+	<unicode/utf16.h>
+	<math.h>
+
+1719516132 source:e:\autos(mit gui)\andern.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"andern.h"
+	"sqlite3.h"
+	"initialisieren.h"
+
+1719439694 e:\autos(mit gui)\andern.h
+
+1570775188 e:\autos(mit gui)\sqlite3.h
+	<stdarg.h>
+
+1719412066 e:\autos(mit gui)\initialisieren.h
+
+1719556558 source:e:\autos(mit gui)\anzeigen.c
+	<windows.h>
+	<commctrl.h>
+	<stdio.h>
+	"anzeigen.h"
+	"sqlite3.h"
+	"initialisieren.h"
+
+1719245242 e:\autos(mit gui)\anzeigen.h
+
+1719517460 source:e:\autos(mit gui)\hinzufugen.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"hinzufugen.h"
+	"sqlite3.h"
+	"initialisieren.h"
+
+1719238718 e:\autos(mit gui)\hinzufugen.h
+
+1719520610 source:e:\autos(mit gui)\initialisieren.c
+	<stdio.h>
+	<stdlib.h>
+	"initialisieren.h"
+	"sqlite3.h"
+
+1719516132 source:e:\autos(mit gui)\loschen.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"loschen.h"
+	"sqlite3.h"
+	"hinzufugen.h"
+	"initialisieren.h"
+
+1719245512 e:\autos(mit gui)\loschen.h
+
+1570775188 source:e:\autos(mit gui)\sqlite3.c
+	"config.h"
+	<vxWorks.h>
+	<pthread.h>
+	"mingw.h"
+	"_mingw.h"
+	<stdarg.h>
+	<stdint.h>
+	<inttypes.h>
+	<intrin.h>
+	<cmnintrin.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<stddef.h>
+	<TargetConditionals.h>
+	<ctype.h>
+	<time.h>
+	<sys/sysctl.h>
+	<malloc/malloc.h>
+	<libkern/OSAtomic.h>
+	<malloc.h>
+	<pthread.h>
+	"windows.h"
+	<sys/cygwin.h>
+	<errno.h>
+	<process.h>
+	<math.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<sys/ioctl.h>
+	<unistd.h>
+	<sys/time.h>
+	<errno.h>
+	<sys/mman.h>
+	<sys/file.h>
+	<sys/param.h>
+	<semaphore.h>
+	<limits.h>
+	<sys/mount.h>
+	<utime.h>
+	<sys/dcmd_blk.h>
+	<sys/statvfs.h>
+	<dlfcn.h>
+	"sqlite_tcl.h"
+	"tcl.h"
+	<ctype.h>
+	"sqlite3rtree.h"
+	<ctype.h>
+	<unicode/utypes.h>
+	<unicode/uregex.h>
+	<unicode/ustring.h>
+	<unicode/ucol.h>
+	<unicode/ubrk.h>
+	<unicode/utf16.h>
+	<math.h>
+
+1719555930 source:e:\autos(mit gui)\main.c
+	<windows.h>
+	<commctrl.h>
+	<stdio.h>
+	"initialisieren.h"
+	"hinzufugen.h"
+	"loschen.h"
+	"anzeigen.h"
+	"andern.h"
+	"sqlite3.h"
 

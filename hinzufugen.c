@@ -1,70 +1,113 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <string.h>
 #include "hinzufugen.h"
 #include "sqlite3.h"
 #include "initialisieren.h"
 
-    extern sqlite3 *db;
-    extern int rc;
-    extern char *sql, *sql2, *sql3;
-    extern char *fehlernachricht;
+extern sqlite3 *db;
+extern int rc;
+extern char *fehlernachricht;
 
-void hinzufugen (){
-    char typ[20], vin[18], hubraum[5], ausstoss[4], modell[20], marke[20], jahr[4], laufleistung[4], beschreibung[1000], preis[10], sql[500], sqlTeil[10];
-    initialisieren();
+int nummer(const char *str) {
+    for (int i = 0; i < strlen(str); i++) {
+        if (!isdigit(str[i])) {
+            return 0;
+        }
+    }
+    return 1;
+}
 
-    fflush(stdin);
+
+void hinzufugen() {
+    char typ[20], vin[18], hubraum[5], ausstoss[4], modell[20], marke[20], jahr[4], laufleistung[4], preis[10], sql[1500], beschreibung[500];
+
+    while(1){
     printf("Geben Sie die VIN ein: ");
-    fgets(vin, 20, stdin);
+    scanf("%s", vin);
+    if(nummer(vin)){
+        break;
+    }
+    else{
+        printf("\nBitte Zahl eingeben!\n\n");
+    }
+    }
     printf("Geben Sie das Autotyp ein: ");
-    fgets(typ, 20, stdin);
+    scanf("%s", typ);
+    getchar();
     printf("Um welcher Automarke handelt es sich?: ");
-    fgets(marke, 20, stdin);
+    scanf("%s", marke);
+    getchar();
     printf("Geben Sie das Automodell ein: ");
-    fgets(modell, 20, stdin);
-    printf("Geben Sie den Hubraum ein: ");
-    fgets(hubraum, 20, stdin);
-    printf("Geben Sie die Co2-Emissionen ein: ");
-    fgets(ausstoss, 20, stdin);
+    scanf("%s", modell);
+    getchar();
+    while(1){
+    printf("Geben Sie den Hubraum ein(Liter): ");
+    scanf("%s", hubraum);
+        if(nummer(hubraum)){
+        break;
+    }
+    else{
+        printf("\nBitte Zahl eingeben!\n\n");
+    }
+    }
+    while(1){
+    printf("Geben Sie die Co2-Emissionen ein (g/100km): ");
+    scanf("%s", ausstoss);
+        if(nummer(ausstoss)){
+        break;
+    }
+    else{
+        printf("\nBitte Zahl eingeben!\n\n");
+    }
+    }
+    while(1){
     printf("Geben Sie das Erstzulassungsjahr ein: ");
-    fgets(jahr, 20, stdin);
+    scanf("%s", jahr);
+    if(nummer(jahr)){
+        break;
+    }
+    else{
+        printf("\nBitte Zahl eingeben!\n\n");
+    }
+    }
+    while(1){
     printf("Geben Sie die Laufleistung ein (in Tkm): ");
-    fgets(jahr, 20, stdin);
+    scanf("%s", laufleistung);
+    if(nummer(laufleistung)){
+        break;
+    }
+    else{
+        printf("\nBitte Zahl eingeben!\n\n");
+    }
+    }
     printf("Geben Sie eine Beschreibung ein: ");
-    fgets(beschreibung, 20, stdin);
+    getchar();
+    fgets(beschreibung, sizeof(beschreibung), stdin);
+    beschreibung[strcspn(beschreibung, "\n")] = 0;
+    printf("Eingegbene Beschreibung: %s\n", beschreibung);
+    while(1){
     printf("Geben Sie den Wert des Autos ein: ");
-    fgets(preis, 20, stdin);
+    scanf("%s", preis);
+    if(nummer(preis)){
+        break;
+    }
+    else{
+        printf("\nBitte Zahl eingeben!\n\n");
+    }
+    }
 
-    strcpy(sql, "INSERT INTO autos (VIN, Typ, Marke, Modell, Jahr, "
-        "Hubraum, Emmisionen, Beschreibung, Preis) VALUES (");
-    strcat(sql, vin);
-    strcpy(sqlTeil, ", '");
-    strcat(sql, sqlTeil);
-    strcat(sql, typ);
-    strcat(sql, sqlTeil);
-    strcat(sql, marke);
-    strcat(sql, sqlTeil);
-    strcat(sql, modell);
-    strcat(sql, sqlTeil);
-    strcat(sql, hubraum);
-    strcat(sql, sqlTeil);
-    strcat(sql, ausstoss);
-    strcat(sql, sqlTeil);
-    strcat(sql, jahr);
-    strcat(sql, sqlTeil);
-    strcat(sql, laufleistung);
-    strcat(sql, sqlTeil);
-    strcat(sql, beschreibung);
-    strcat(sql, sqlTeil);
-    strcat(sql, preis);
-    strcpy(sqlTeil, ");");
-    strcat(sql, sqlTeil);
+    sprintf(sql,"INSERT INTO autos (Vin, Typ, Marke, Modell, Jahr, Laufleistung, Hubraum, Emissionen, Beschreibung, Preis) "
+        "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');",vin, typ, marke, modell, jahr, laufleistung, hubraum, ausstoss, beschreibung, preis);
+    initialisieren();
     rc = sqlite3_exec(db, sql, 0, 0, &fehlernachricht);
-    if(rc != 0){
-        printf("Datenbankfehler: %s\n", fehlernachricht);
+    if (rc != SQLITE_OK) {
+        printf("Datenbankfehler: %s\n", sqlite3_errmsg(db));
         sqlite3_free(fehlernachricht);
+        sqlite3_close(db);
         exit(EXIT_FAILURE);
     }
-    sqlite3_close(db);
+
 }
+

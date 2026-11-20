@@ -1,0 +1,159 @@
+﻿Relationmodell.
+autos(VIN(Primärschlüssel), Typ, Marke, Modell, Jahr, Laufleistung, Hubraum, Emissionen, Beschreibung, preis)
+kunden(KundenID(Primärschlüssel), Vorname, Naachname, Adresse, Telefonnummer, Email)
+verkauf(VerkaufID(Primärschlüssel), VIN(Fremdschlüssel), KundenID(Fremdschlüssel), Verkaufsdatum, Preis)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+20.04.24
+Da mir die Methode SQL in Java mit JDBC zu verbinden habe ich mich entschieden mein Projekt in der Sprache C zu schreiben.
+Planung: 
+-Ein Programm für einen Automobilhändler, der es ihn ermöglich geordnet alle seine Fahrzeuge in einer Datenbank zu sammeln. 
+-Um es dem Verkäufer den Verkauf leichter zu gestalten wird es dem Programm möglich sein die Autos nach verschiedenen Einteilungskriterie zu sortieren.
+-Eine simple GUI mit GTX(geplant) 
+-Das Programm soll eine Auto in die Datenbank einfügen können, Autos ansehen können, Autos löschen können.
+-Wenn es möglich sein sollte Fotos mit der GUI abzubilden sollen diese auch zu den zugehörigen autos anzeigt werden.
+
+Zu tun:
+-C Befehle und Objektorientierung auffrishen
+-GTK lernen
+
+21.04.24 19:59
+
+Heute wurde die Grundlage des Programms geschrieben. 
+Zuallererst wird ein Objekt eines Autos erstellt. Die enthaltenen Daten im Objekt können in der SQL Tabelle eingefügt werden
+Das Programm enthält eine Funktion die die autos in die datenbank einfügt und eine funktion die die SQL Befehle ausführt. 
+Das programm ist zurzeit 94 Zeilen lang und hat mich 4 Stunden gedauert.
+
+23:30 Uhr 
+Die Funktion des Programms wurde erweitert, sodass es eingaben vom Benutzer über ein Auto bekommt, welches zur Tabelle hinzugefügt werden soll. Im anschluss kann der Inhalt der Tabelle ausgegeben werden. Nun fehlen Funktionen die den Inhalt der Tabelle ändern lassen und entfernen. Auch ein "Startmenü" fehlt in dem dem Benutzer gefragt wird, was er zunächst tun will. 
+Dauer: c.a 3 Stunden
+
+17.05.2024
+
+Main datei getrennt von der Funktion die Datenbak zu trennen(in initialisieren.c) . Die Funktion alle Autos auzugeben wurde in anzeigen.c verschoben. 
+In der Main dateib wird abgefragt ob man Datenbank anzeigen will oder programm beenden soll.
+Tabelle autos erweitert und individuelle Datentypen hinzugefügt
+Dauer: 4 Stunden
+
+20.05.2024
+
+anzeigen.c mit der Funktion sortieren zu können erweitert.
+Tabelle Kunden hinzugefügt
+
+Dauer:3 Stunden
+
+24.05.2024
+
+hinzufügen.c erstellt. Man kann neue Autos hinzufügen. Main Datei angepasst. Bugs wo scanf Befehle die Übergabewerte an die nächste Funktion weitergeben behoben. Sichere Funktionsweisen erstellt
+Gute Callback Funktion für anzeigen.c erstellt.
+Dauer:5 Stunden
+
+
+07.06.2024
+
+Sortierfunktion erweitert und zugehörige Bugs behoben.
+andern.c, die Datei die Autos ändern kann erstellt.
+Dauer:4 Stunden
+
+08.06.2024
+Zusätzlich zur Callback Funktion eine Funktion erstellt die die Daten übersichtlicher darstellt(nach columne)
+Dauer: 5 Stunden
+
+14.06.2024
+Tabelle Kunden und Verkäufe hinzugefügt und notwendige anpassungen an ganzem Projekt erledigt.
+andern.c erweitert
+Dauer: 5 Stunden
+
+
+15.06.2024
+Alle Eingaben sicherer gemacht. \n nach fgets Befehlen entfernt.
+Kunden können jetzt hinzugefügt werden durch loschen.c
+Dauer: 4 Stunden
+
+19.06.2024
+Es werden bei loschen.c Rechnungen ausgegeben, die durch ein JOIN ausgeführt werden
+Tabellen Normiert und Optimiert
+Dauer: 4 Stunden
+
+21.06.2024
+Sleep Funktionen hinzugefügt und durch clear Commands Programm übersichtlicher gemacht.
+Verkäufe und Kunden können ausgegeben werden. 
+Autos können nach Marke angezeigt werden.
+Dauer: 3 Stunden
+
+
+22.06.2024
+Ungültige Eingaben hinzugefügt 
+Und eingaben bei hinzufugen.c werden geprüft, ob Sie tatsächlich ein Integer sind.
+Bei lochen.c wurde die Spalte zuerst gelöscht und die Rechnung danach erstellt, was zu einem Fehler geführt hat.
+Bug bei initialisieren.c, der die Datenbank geschlossen hat und so zu Abstürzen geführt hat behoben.
+Bei Anzeigen.c werden auch autos die als Mercedes-Benz oder Rolls Roys gespeichert sind ausgegeben wenn man nur mercedes oder rolls eingibt.
+Dauer: 5 Stunden
+
+27.06.2024
+Statt GTK(Weil ständig Linker Error aufkamen) benutze ich Winapi um eine GUI zu erstellen.
+Es ist nicht möglih gewesen eine Eingabe und Variable Ausgabe in der GUI mit zu integrieren und deshalb mussten Funktionen eingeschränkt werden und über das Terminal ausgeführt werden.
+Komplette Main.c und anzeigen.c Datein mit Windowsapi bestückt.
+Da die WindowsAPI nicht in der Lage ist andere Daten als die Autos auszugeben und zu sortieren, musste man diese Funktionen einschränken.
+Dauer: 6 Stunden 
+
+
+28.06.2024
+Da die Datenbank sich von dem Anfang stark unterscheidet habe ich ein neues ER Diagramm erstellt und Screenshots vom programm aufgenommen.
+Umlaute im ganzen Programm durch angemessene Zeichen ersetzt.
+Dauer: 3 Stunden 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Das Programm kann Daten zu einer Tablle hinzufügen, die Kunden und Autodaten in der Datenbank verändern, die Kunden, Autos, Kunden und Verkäufe anzeigen und Daten löschen bzw. verkaufen.
+
+ERD:
+1 Kunde kann nur 1 Rechnung Besitzen und deswegen ist es eine 1 zu 1 Beziehung.
+Ein Kunde ist kein Kunde wenn er kein Auto gekauft hat.
+
+Ein Auto kann im Portfolio sein muss aber nicht Verkauft werden und wenn es verkauft wir besitzt es nur 1 Rechnung
+
+
+SQL im Programm:
+CREATE TABLE IF NOT EXISTS autos (Vin TEXT PRIMARY KEY Not Null,Typ TEXT,Marke TEXT,Modell TEXT,Jahr TEXT,Laufleistung TEXT,Hubraum TEXT,Emissionen TEXT,Beschreibung TEXT,Preis TEXT);
+
+
+CREATE TABLE IF NOT EXISTS kunden (KundenID INTEGER PRIMARY KEY AUTOINCREMENT,Vorname TEXT NOT NULL,Nachname TEXT NOT NULL,Adresse TEXT,Telefonnummer TEXT,Email TEXT);
+
+
+CREATE TABLE IF NOT EXISTS verkauf (VerkaufID INTEGER PRIMARY KEY AUTOINCREMENT,Vin TEXT NOT NULL,KundenID INTEGER NOT NULL,Verkaufsdatum DATE,Preis INTEGER,FOREIGN KEY (Vin) REFERENCES autos(Vin),FOREIGN KEY (KundenID) REFERENCES kunden(KundenID));
+
+Das Programm ist in 2 Versionen verfügbar. Die GUI version besitzt eine eingeschränkte Funktionalität(kann nur Autos ausgeben, kann nicht Sortieren, Nimmt Befehle über einem Terminal auf) und die Terminal Version kann alles.
+Weitere Funktionen können den Bildern Entnommen werden.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

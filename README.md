@@ -6,8 +6,8 @@ ER-Diagramm:
 
 Beispielbilder aus dem Programm:
 Oberfläche:
-![alt text](https://github.com/zapf740/CarstockManager/blob/main/Oberfläche.png?raw=true "Start Menü")
+![alt text](https://github.com/zapf740/CarstockManager/blob/main/Oberfläche.PNG?raw=true "Start Menü")
 
 Eine Funktion:
 
-![alt text](https://github.com/zapf740/CarstockManager/blob/main/Autos%20Anzeigen.png?raw=true "Autos anzeigen")
+![alt text](https://github.com/zapf740/CarstockManager/blob/main/Autos%20Anzeigen.PNG?raw=true "Autos anzeigen")

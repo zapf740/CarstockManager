@@ -27,53 +27,6 @@ int callback(void *nichtVerwendet, int anzahl, char **inhalte, char **spaltennam
     return 0;
 }
 
-void vermieten (){
-    sqlite3 *db;
-    int rc;
-    char *fehlernachricht;
-    char eingabe[10];
-    char sql[100];
-    char sqlTeil[5];
-    rc = sqlite3_open("/Aufgaben/bin/Release/auto.db", &db);
-    printf("Geben Sie die ID der Wohnung ein, die vermietet werden soll: ");
-    scanf("%s", eingabe);
-    strcpy(sql, "UPDATE Wohnungen SET Vermietet = 1 WHERE ID = ");
-    strcat(sql, eingabe);
-    strcpy(sqlTeil, ";");
-    strcat(sql, sqlTeil);
-    printf("\n\n\n");
-    rc = sqlite3_exec(db, sql, 0, 0, &fehlernachricht);
-    if(rc != 0){
-        printf("Datenbankfehler: %s\n", fehlernachricht);
-        sqlite3_free(fehlernachricht);
-        exit(EXIT_FAILURE);
-    }
-}
-
-void verkaufen (){
-    sqlite3 *db;
-    int rc;
-    char *fehlernachricht;
-    char eingabe[10];
-    char sql[100];
-    char sqlTeil[5];
-    rc = sqlite3_open("/Aufgaben/bin/Release/auto.db", &db);
-    printf("Geben Sie die ID der Wohnung ein, die verkauft werden soll: ");
-    scanf("%s", eingabe);
-    strcpy(sql, "DELETE FROM Wohnungen WHERE ID = ");
-    strcat(sql, eingabe);
-    strcpy(sqlTeil, ";");
-    strcat(sql, sqlTeil);
-    printf("\n\n\n");
-    rc = sqlite3_exec(db, sql, 0, 0, &fehlernachricht);
-    if(rc != 0){
-        printf("Datenbankfehler: %s\n", fehlernachricht);
-        sqlite3_free(fehlernachricht);
-        exit(EXIT_FAILURE);
-    }
-}
-
-
 
 int ausfuhren(sqlite3 *db, char *sql) {
     char *error;
@@ -123,8 +76,8 @@ void einfugen(sqlite3 *db, Auto autod) {
             autod.vin, autod.hubraum, autod.verbrauch, autod.modell, autod.marke, autod.jahr, autod.beschreibung, autod.preis);
 
     if (ausfuhren(db, sql) != 0) {
-        fprintf(stderr, "Fehler beim Einfügen des Autos in die Datenbank\n");
+        fprintf(stderr, "Fehler beim EinfÃ¼gen des Autos in die Datenbank\n");
     } else {
-        printf("Auto erfolgreich eingefügt!\n");
+        printf("Auto erfolgreich eingefÃ¼gt!\n");
     }
 }
